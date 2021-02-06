@@ -2,11 +2,14 @@ import numpy as np
 from itertools import combinations
 from scipy.sparse import csr_matrix
 
+#load the data
 data = np.load("user_movie.npy")
 
+#Initialize the input matrix as a sparse matrix
 my_matrix = csr_matrix((len(set(data[:,1])),len(set(data[:,0])) ), dtype=np.int8).toarray()
 nrow = len(data)
 
+#Fill the sparse matrix
 for row in range(nrow):
     user = data[row,0] 
     movie = data[row,1] 
@@ -44,5 +47,5 @@ for row in range(nrow):
                 if H[j] < M[j,col] :
                     M[j,col] = H[j]
                     
-                    
+#Save signature matrix                  
 np.save('sig.npy', M)
